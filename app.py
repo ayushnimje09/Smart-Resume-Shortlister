@@ -13,8 +13,10 @@ def extract_contact_info(text):
     return (email[0] if email else "N/A"), (phone[0] if phone else "N/A")
 
 def extract_experience(text):
-    exp_pattern = re.findall(r'(\d+\.?\d*)\s*(?:+)?\s*(?:years?|yrs?)\s*(?:experience|exp)?', text, re.IGNORECASE)
+    # Sahi pattern: Humne '+' se pehle backslash '\' laga diya hai
+    exp_pattern = re.findall(r'(\d+\.?\d*)\s*(?:\+)?\s*(?:years?|yrs?)\s*(?:experience|exp)?', text, re.IGNORECASE)
     if exp_pattern:
+        # Saare numbers ko float mein badal kar sabse bada number (total exp) le rahe hain
         return max([float(x) for x in exp_pattern])
     return 0
 
